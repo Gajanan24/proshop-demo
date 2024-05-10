@@ -1,7 +1,5 @@
 const express = require('express')
 const router = express.Router();
-const asyncHandler = require('../middleware/asyncHandler');
-const Product = require('../models/productModel')
 const productController = require('../controllers/productController')
 
 const getProducts = productController.getProducts

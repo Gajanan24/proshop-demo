@@ -22,6 +22,8 @@ const CartScreen = () => {
     const checkoutHandler = () => {
         navigate('/login?redirect=/shipping');
     }
+    
+
 
     return (
         <Row>

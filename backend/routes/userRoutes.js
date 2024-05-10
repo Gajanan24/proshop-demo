@@ -1,7 +1,5 @@
 const express = require('express')
 const router = express.Router();
-const asyncHandler = require('../middleware/asyncHandler');
-const User = require('../models/userModel');
 const {
     authUser,
     registerUser,
