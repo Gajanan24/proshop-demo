@@ -28,7 +28,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended:true}));
 
 // app.use(cors());
-
+const corsOptions = {
+    origin: "http://localhost:3000", // Change this to the origin(s) you want to allow.
+    credentials: true, // Indicates that cookies and credentials should be included.
+  };
+   
+app.use(cors(corsOptions));
 
 // const corsOptions = {
 //     origin: "http://localhost:3000",
