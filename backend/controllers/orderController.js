@@ -1,5 +1,8 @@
 const asyncHandler = require('../middleware/asyncHandler')
 const Order = require('../models/orderModel')
+const RazorPay = require('razorpay')
+const crypto = require('crypto')
+
 
 const addOrderItems = asyncHandler(async (req,res) => {
    
@@ -84,12 +87,33 @@ const getOrders = asyncHandler(async (req,res) => {
     res.send('get all orders');
 })
 
+const verifyPayment = asyncHandler(async (req,res) => {
+    const {
+        orderId,
+        paymentId,
+        razorpay_signature
+    } = req.body;
+    let sign = orderId + "|" + paymentId;
+    var expectedSignature =  crypto.createHmac('sha256', process.env.KEY_SECRET)
+        .update(sign.toString())
+        .digest('hex');
+    
+        if (expectedSignature === razorpay_signature) {
+            return res.status(200).json({message : 'Payment Verified Successfully'});
+        } else {
+            res.status(400);
+            throw new Error('Invalid Signature');
+        }
+            
+})
+
 module.exports = {
     addOrderItems,
     getMyOrders,
     getOrderById,
     updateOrderToPaid,
     updateOrderToDelivered,
-    getOrders
+    getOrders,
+    verifyPayment
 }
 

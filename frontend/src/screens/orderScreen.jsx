@@ -6,12 +6,37 @@ import { toast } from "react-toastify";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { useGetOrderDetailsQuery } from "../slices/ordersApiSlice"
 import cartSlice, { clearCartItems } from "../slices/cartSlice";
+import { response } from "express";
+import axios from 'axios';
 
 
 const OrderScreen = () => {
 
     const { id:orderId } = useParams();
     const { data : order, refetch, isLoading, error } = useGetOrderDetailsQuery(orderId);
+
+    // const initPayment = (data) => {
+    //   const options = {
+    //     key : '',
+    //     amount : order.totalPrice,
+    //     currency : 'INR',
+    //     name: order._id,
+    //     description: "Test Transaction",
+    //     image: "https://example.com/your_logo",
+    //     order_id : orderId, // Pass the `id` obtained in the response of Step 1,
+    //     handler : async (response) => {
+    //       try{
+
+    //         const verifyUrl = "http://localhost:5000/api/orders/payment"
+    //         const { data } = await axios.post(verifyUrl,response);
+    //         console.log(data);
+
+    //       } catch (error) {
+    //         console.log(error);
+    //       }
+    //     }
+    //   }
+    // }
 
     console.log(order);
 
