@@ -47,7 +47,15 @@ export const orderApiSlice = apiSlice.injectEndpoints({
               body: details,
             }),
         }),
+        getMyOrders: builder.query({
+            query: () => ({
+              url: `${ORDERS_URL}/mine`,
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
+            }),
+            keepUnusedDataFor: 5,
+        }),
 
     }),
 });
-export const { useCreateOrderMutation, useGetOrderDetailsQuery, useInitiateRazorpayPaymentMutation, useVerifySignatureMutation, usePayOrderMutation } = orderApiSlice
+export const { useCreateOrderMutation, useGetOrderDetailsQuery, useInitiateRazorpayPaymentMutation, useVerifySignatureMutation, usePayOrderMutation, useGetMyOrdersQuery } = orderApiSlice
