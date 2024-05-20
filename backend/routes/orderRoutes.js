@@ -7,7 +7,8 @@ const {
     updateOrderToPaid,
     updateOrderToDelivered,
     getOrders,
-    verifyPayment
+    initiateRazorpayPayment,
+    verifySignature
 } = require('../controllers/orderController');
 
 const { protect, admin } = require('../middleware/authMiddleware')
@@ -15,8 +16,9 @@ const { protect, admin } = require('../middleware/authMiddleware')
 router.route('/').post(protect, addOrderItems).get(protect, admin, getOrders);
 router.route('/mine').get(protect, getMyOrders);
 router.route('/:id').get(protect,getOrderById)
-router.route('/:id/pay').put(protect, updateOrderToPaid)
+router.route('/:id/pay').put(updateOrderToPaid)
 router.route('/:id/deliver').put(protect,admin,updateOrderToDelivered)
-router.route('/payment').post(protect,verifyPayment)
+router.route('/payment').post(initiateRazorpayPayment)
+router.route('/validate').post(verifySignature)
 
 module.exports = router;
