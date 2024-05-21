@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
 import CheckoutSteps from "../components/CheckoutSteps";
-import { useGetOrderDetailsQuery, useVerifySignatureMutation, useInitiateRazorpayPaymentMutation, usePayOrderMutation } from "../slices/ordersApiSlice"
+import { useGetOrderDetailsQuery, useVerifySignatureMutation, useInitiateRazorpayPaymentMutation, usePayOrderMutation, useDeliverOrderMutation } from "../slices/ordersApiSlice"
 import cartSlice, { clearCartItems } from "../slices/cartSlice";
 
 
@@ -17,6 +17,10 @@ const OrderScreen = () => {
     const [initiatePayment, { isLoading: loadingInitiatePayment }] = useInitiateRazorpayPaymentMutation();
     const [verifySignature, { isLoading: loadingVerifySignature }] = useVerifySignatureMutation();
     const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+
+    const [deliverOrder, { isLoading: loadingDeliver }] = useDeliverOrderMutation();
+
+    const { userInfo } = useSelector((state) => state.auth);
 
     const initiateVerifySignature = async (payload) => {
       try {
@@ -104,7 +108,17 @@ const OrderScreen = () => {
             toast.error('Error initiating Razorpay payment');
         }
     };
-  
+    const deliverHandler = async () => {
+      try {
+        await deliverOrder(orderId);
+        refetch();
+        toast.success('Order Delivered')
+
+      } catch (error) {
+        toast.success(error?.data?.message || error.message);
+      }
+     
+    };
     
 
     
@@ -250,6 +264,18 @@ const OrderScreen = () => {
                                         </Button>
                                     )}
                                 </ListGroup.Item>
+                            )}
+                            {loadingDeliver &&  <h6 style={{ color: 'red' }}>Loading ... </h6>}
+
+                            {userInfo &&
+                              userInfo.isAdmin &&
+                                order.isPaid &&
+                                !order.isDelivered && (
+                              <ListGroup.Item>
+                                <Button type='button' className='btn btn-block' onClick={deliverHandler}>
+                                    Mark As Delivered
+                                </Button>
+                              </ListGroup.Item>
                             )}
 
                     </ListGroup>

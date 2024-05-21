@@ -2,12 +2,14 @@ const express = require('express')
 const dotenv = require('dotenv')
 dotenv.config();
 
+const path = require('path')
 const cookieParser = require('cookie-parser')
 
 const cors = require('cors')
-const productRoutes = require('./routes/productRoutes')
-const userRoutes = require('./routes/userRoutes')
-const orderRoutes = require('./routes/orderRoutes')
+const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 const errorMiddleware = require('./middleware/errorMiddleware');
 
@@ -35,13 +37,6 @@ const corsOptions = {
    
 app.use(cors(corsOptions));
 
-// const corsOptions = {
-//     origin: "http://localhost:3000",
-//     credentials: true
-// };
-// app.use( cors(corsOptions) );
-
-
 //Cookie parser middleware
 app.use(cookieParser());
 
@@ -53,6 +48,10 @@ app.get('/', (req,res) => {
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/upload', uploadRoutes);
+
+//const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.use(notFound);
 app.use(errorHandler);

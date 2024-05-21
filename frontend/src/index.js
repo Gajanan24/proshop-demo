@@ -14,6 +14,7 @@ import './assets/styles/bootstrap.custom.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import PrivateRoute from './components/PrivateRoute'
+import AdminRoute from './components/AdminRoute';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/cartScreen';
@@ -24,6 +25,12 @@ import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/orderScreen';
 import ProfileScreen from './screens/ProfileScreen';
+
+import OrderListScreen from './screens/Admin/OrderListScreen';
+import ProductListScreen from './screens/Admin/ProductListScreen';
+import ProductEditScreen from './screens/Admin/ProductEditScreen';
+import UserListScreen from './screens/Admin/UserListScreen';
+import UserEditScreen from './screens/Admin/UserEditScreen';
 
 
 /*
@@ -60,6 +67,14 @@ root.render(
                <Route path="/profile" element={<ProfileScreen/>} />
 
           </Route>
+          <Route path='' element={<AdminRoute/>}>
+                <Route path="/admin/orderlist" element={<OrderListScreen/>} /> 
+                <Route path="/admin/productlist" element={<ProductListScreen/>} />
+                <Route path="/admin/product/:id/edit" element={<ProductEditScreen/>} />  
+                <Route path="/admin/userlist" element={<UserListScreen/>} />
+                <Route path="/admin/user/:id/edit" element={<UserEditScreen/>} />          
+          </Route>
+
         </Route>
       </Routes>
     </BrowserRouter>
