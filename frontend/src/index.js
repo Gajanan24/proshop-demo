@@ -55,6 +55,9 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<HomeScreen />} />
+          <Route path="/search/:keyword" element={<HomeScreen />} />
+          <Route path="/page/:pageNumber" element={<HomeScreen />} />
+          <Route path="/search/:keyword/page/:pageNumber" element={<HomeScreen />} />
           <Route path="/product/:id" element={<ProductScreen />} />
           <Route path="/cart" element={<CartScreen/>} />
           <Route path="/login" element={<LoginScreen/>} />
@@ -70,6 +73,7 @@ root.render(
           <Route path='' element={<AdminRoute/>}>
                 <Route path="/admin/orderlist" element={<OrderListScreen/>} /> 
                 <Route path="/admin/productlist" element={<ProductListScreen/>} />
+                <Route path="/admin/productlist/:pageNumber" element={<ProductListScreen/>} />
                 <Route path="/admin/product/:id/edit" element={<ProductEditScreen/>} />  
                 <Route path="/admin/userlist" element={<UserListScreen/>} />
                 <Route path="/admin/user/:id/edit" element={<UserEditScreen/>} />          

@@ -7,6 +7,7 @@ import logo from '../assets/logo.png'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice'
+import SearchBox from './SearchBox';
 
 
 
@@ -31,7 +32,7 @@ const Header = () => {
 
   return (
     <header>
-        <Navbar bg='dark' variant='dark' expand='md' collapseOnSelect>
+        <Navbar style={{ backgroundColor: 'rgba(255, 215, 0, 0.55)' }} variant='light' expand='md' collapseOnSelect>
             <Container>
                 <LinkContainer to='/'>
                 <Navbar.Brand>
@@ -42,6 +43,7 @@ const Header = () => {
                 <Navbar.Toggle aria-controls='basic-navbar-nav'/>
                 <Navbar.Collapse id='basic-navbar-nav'>
                     <Nav className='ms-auto'>
+                        <SearchBox/>
                         <LinkContainer to='/cart'>
                         <Nav.Link href='/cart'>
                             <FaShoppingCart/> Cart

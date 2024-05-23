@@ -26,6 +26,7 @@ const initiateRazorpayPayment = asyncHandler(async (req, res) => {
     try {
         // Create Razorpay order
         const razorpayOrder = await razorpay.orders.create(options);
+        console.log("razorpay order.....",razorpayOrder);
         // Send Razorpay order ID and key to frontend
         res.status(200).json({
             razorpayOrderId: razorpayOrder.id,
@@ -39,26 +40,7 @@ const initiateRazorpayPayment = asyncHandler(async (req, res) => {
 });
 
 
-// const verifySignature = asyncHandler(async (req,res) => {
-//     console.log("**************************************************")
-//     const body = req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id;
-//     const crypto = require("crypto");
-//     const expectedSignature = crypto.createHmac('sha256', 'YUKbHCR6cndXrLUNDh3dHRkc')
-//         .update(body)
-//         .digest('hex');
-//     let response = { signatureIsValid: false };
-//     if (expectedSignature === req.body.razorpay_signature) {
-//         response = { signatureIsValid: true };
-//         res.send(response);
-//     } else {
-//         console.error("Error verifying signature....................................................:");
-//         res.status(500).send({ error: "Internal server error signar",
-//            expec: expectedSignature,
-//            resSig : res.body.razorpay_signature 
-//          });
-//     }
-    
-// })
+
 const verifySignature = asyncHandler(async (req, res) => {
     console.log("Received Payload:", req.body);
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
