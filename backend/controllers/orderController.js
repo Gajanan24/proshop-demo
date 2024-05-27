@@ -42,7 +42,7 @@ const initiateRazorpayPayment = asyncHandler(async (req, res) => {
 
 
 const verifySignature = asyncHandler(async (req, res) => {
-    console.log("Received Payload:", req.body);
+    
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
     const body = razorpay_order_id + "|" + razorpay_payment_id;
@@ -115,7 +115,7 @@ const getMyOrders = asyncHandler(async (req,res) => {
 
 const updateOrderToPaid = asyncHandler(async (req,res) => {
     const order = await Order.findById(req.params.id);
-    console.log(order)
+
     console.log("recieved body: ",req.body);
     if(order) {
         order.isPaid = true;
@@ -139,7 +139,7 @@ const updateOrderToPaid = asyncHandler(async (req,res) => {
 
 const getOrderById = asyncHandler(async (req,res) => {
     const order = await Order.findById(req.params.id).populate('user', 'name email');
-    console.log(order);
+    
     if(order){
         res.status(200).json(order);
     } else {

@@ -141,9 +141,9 @@ const OrderScreen = () => {
 
 
     return isLoading ? (
-        <h3>Loading ... </h3>
+      <h6 style={{ color: 'green' }}>Loading ... </h6>
         ) : error ? (
-            <h3>Error</h3>
+          <h6 style={{ color: 'red' }}>{error?.data?.message || error.error}</h6>
         ) : (
         <>
         <h1> Order {order._id} </h1>

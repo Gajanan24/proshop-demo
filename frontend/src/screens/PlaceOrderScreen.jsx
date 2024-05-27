@@ -130,9 +130,9 @@ const PlaceOrderScreen = () => {
                                 <Col>Rs. {cart.totalPrice}</Col>
                             </Row>
                         </ListGroup.Item>
-                        {/* <ListGroup.Item>
-                            { error && <h3>{error}</h3>}
-                        </ListGroup.Item> */}
+                        <ListGroup.Item>
+                            { error && <h6 style={{ color: 'red' }}>{error?.data?.message || error.error}</h6>}
+                        </ListGroup.Item>
                         <ListGroup.Item>
                             <Button
                                 type='button'

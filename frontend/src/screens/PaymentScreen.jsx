@@ -7,7 +7,7 @@ import CheckoutSteps from '../components/CheckoutSteps';
 import { savePaymentMethod } from '../slices/cartSlice';  
 
 const PaymentScreen = () => {
-    const [ paymentMethod, setPaymentMethod ] = useState('PayPal');
+    const [ paymentMethod, setPaymentMethod ] = useState('RazorPay');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -39,9 +39,9 @@ const PaymentScreen = () => {
                             type='radio'
                             className='my-2'
                             label='UPI or Net Banking'
-                            id='PayPal'
+                            id='Razorpay'
                             name='paymentMethod'
-                            value='PayPal'
+                            value='RazorPay'
                             checked
                             onChange={(e) => setPaymentMethod(e.target.value)}>
 
