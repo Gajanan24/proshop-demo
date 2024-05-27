@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended:true}));
 
 // app.use(cors());
 const corsOptions = {
-    origin: "*", // Change this to the origin(s) you want to allow.
+    origin: "https://proshop-3u2y.onrender.com", // Change this to the origin(s) you want to allow.
     credentials: true, // Indicates that cookies and credentials should be included.
   };
    
