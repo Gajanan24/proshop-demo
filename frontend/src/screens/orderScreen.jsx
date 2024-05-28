@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
 import CheckoutSteps from "../components/CheckoutSteps";
-import { useGetOrderDetailsQuery, useVerifySignatureMutation, useInitiateRazorpayPaymentMutation, usePayOrderMutation, useDeliverOrderMutation } from "../slices/ordersApiSlice"
+import { useGetOrderDetailsQuery, useVerifySignatureMutation, useInitiateRazorpayPaymentMutation, usePayOrderMutation, useDeliverOrderMutation, useUpdateStockMutation } from "../slices/ordersApiSlice"
 import cartSlice, { clearCartItems } from "../slices/cartSlice";
 
 
@@ -19,8 +19,22 @@ const OrderScreen = () => {
     const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
 
     const [deliverOrder, { isLoading: loadingDeliver }] = useDeliverOrderMutation();
+    const [updateStock, { isLoading: loadingStock }] = useUpdateStockMutation();
 
     const { userInfo } = useSelector((state) => state.auth);
+
+    const updateProductStock = async (orderId) => {
+      try {
+        debugger
+        alert("hiiiiiiii");
+        const response = await updateStock(orderId);
+        alert(response);
+        return response; 
+      } catch (error) {
+        console.error('Error updating stock:', error.response ? error.response.data.message : error.message);
+        toast.error('Error updating stock');
+      }
+    };
 
     const initiateVerifySignature = async (payload) => {
       try {
@@ -42,14 +56,20 @@ const OrderScreen = () => {
               };
               alert(data.id)
               alert(data.payer.email_address);
-              debugger
-              const payResponse = await payOrder({ orderId, data });
-              debugger
+              const payResponse = await payOrder({ orderId, data }); 
               if (payResponse) {
-                toast.success('Payment successful');
-                
+
+                debugger
+                alert("hi")
+                const response = await updateProductStock(orderId);
+                alert(response.status)
+                if(response) {
+                toast.success('Payment successful and stock updated');
                 // Refetch order data to reflect changes
                 refetch();
+                } else {
+                  toast.error('Failed to update order status');
+                }
             } else {
                 toast.error('Failed to update order status');
             }

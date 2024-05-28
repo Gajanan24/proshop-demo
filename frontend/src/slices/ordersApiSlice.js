@@ -71,6 +71,15 @@ export const orderApiSlice = apiSlice.injectEndpoints({
               credentials: "include",
             }),
         }),
+        updateStock : builder.mutation({
+            query: (orderId) => ({
+                url: `${ORDERS_URL}/${orderId}/stock`,
+                method: 'PUT',
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+            }),
+
+        }),
 
     }),
 });
@@ -79,4 +88,5 @@ export const { useCreateOrderMutation,
       useInitiateRazorpayPaymentMutation,
        useVerifySignatureMutation,
         usePayOrderMutation, 
-        useGetMyOrdersQuery, useGetOrdersQuery, useDeliverOrderMutation } = orderApiSlice
+        useGetMyOrdersQuery, useGetOrdersQuery, useDeliverOrderMutation,
+        useUpdateStockMutation } = orderApiSlice

@@ -1,5 +1,6 @@
 const asyncHandler = require('../middleware/asyncHandler')
 const Order = require('../models/orderModel')
+const Product = require('../models/productModel')
 const Razorpay = require('razorpay');
 
 
@@ -169,6 +170,34 @@ const getOrders = asyncHandler(async (req,res) => {
     res.status(200).json(orders);
 })
 
+const updateStock = asyncHandler(async (req,res) => {
+    const order = await Order.findById(req.params.id);
+    console.log("in update stock '😎😎😋😊");
+    if (order) {
+        const orderItems = order.orderItems;
+    
+        for (let item of orderItems) {
+          const product = await Product.findById(item.product);
+    
+          if (product) {
+            if (product.countInStock >= item.qty) {
+              product.countInStock -= item.qty;
+              await product.save();
+            } else {
+              return res.status(400).json({ message: `Not enough stock for ${product.name}` });
+            }
+          } else {
+            return res.status(404).json({ message: `Product not found: ${item.product}` });
+          }
+        }
+    
+        res.status(200).json({ message: 'Stock updated successfully' });
+      } else {
+        res.status(404);
+      }
+    
+})
+
 
 
 module.exports = {
@@ -179,6 +208,7 @@ module.exports = {
     updateOrderToDelivered,
     getOrders,
     initiateRazorpayPayment,
-    verifySignature
+    verifySignature,
+    updateStock
 }
 
