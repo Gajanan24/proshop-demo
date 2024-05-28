@@ -30,11 +30,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended:true}));
 
 // app.use(cors());
-const corsOptions = {
-    origin: ["https://proshop-3u2y.onrender.com/","http://localhost:3000/"], // Change this to the origin(s) you want to allow.
-    credentials: true, // Indicates that cookies and credentials should be included.
-  };
+// const corsOptions = {
+//     origin: ["https://proshop-3u2y.onrender.com/","http://localhost:3000/"], // Change this to the origin(s) you want to allow.
+//     credentials: true, // Indicates that cookies and credentials should be included.
+//   };
    
+// app.use(cors(corsOptions));
+
+const allowedOrigins = [
+  'https://proshop-3u2y.onrender.com',
+  'http://localhost:3000'
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) !== -1) {
+          callback(null, true);
+      } else {
+          callback(new Error('Not allowed by CORS'));
+      }
+  },
+  credentials: true,
+};
 app.use(cors(corsOptions));
 
 //Cookie parser middleware
