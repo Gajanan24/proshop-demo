@@ -9,6 +9,7 @@ import { useGetUserDetailsQuery, useUpdateUserMutation } from '../../slices/user
 const UserEditScreen = () => {
     const { id: userId } = useParams();
     const [name, setName] = useState('');
+    const [phoneNumber , setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -26,7 +27,7 @@ const UserEditScreen = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-          await updateUser({ userId, name, email, isAdmin });
+          await updateUser({ userId, name, phoneNumber, email, isAdmin });
           toast.success('user updated successfully');
           refetch();
           navigate('/admin/userlist');
@@ -40,6 +41,7 @@ const UserEditScreen = () => {
           setName(user.name);
           setEmail(user.email);
           setIsAdmin(user.isAdmin);
+          setPhoneNumber(user.phoneNumber);
         }
     }, [user]);
     
@@ -66,6 +68,16 @@ const UserEditScreen = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               ></Form.Control>
+            </Form.Group>
+            <Form.Group controlId='phoneNumber' className='my-3'>
+                    <Form.Label>Phone Number</Form.Label>
+                    <Form.Control 
+                        type='number'
+                        placeholder='Enter phone no'
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                    >
+                    </Form.Control>
             </Form.Group>
 
             <Form.Group className='my-2' controlId='email'>

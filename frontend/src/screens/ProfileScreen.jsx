@@ -14,6 +14,7 @@ const ProfileScreen = () => {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [phoneNumber , setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -37,6 +38,7 @@ const ProfileScreen = () => {
           try {
             const res = await updateProfile({
               name,
+              phoneNumber,
               email,
               password,
             }).unwrap();
@@ -62,6 +64,16 @@ const ProfileScreen = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     ></Form.Control>
+                </Form.Group>
+                <Form.Group controlId='phoneNumber' className='my-3'>
+                    <Form.Label>Phone Number</Form.Label>
+                    <Form.Control 
+                        type='number'
+                        placeholder='Enter phone no'
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                    >
+                    </Form.Control>
                 </Form.Group>
                 <Form.Group className='my-2' controlId='email'>
                     <Form.Label>Email Address</Form.Label>

@@ -25,6 +25,8 @@ import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/orderScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import ResetpasswordScreen from './screens/ResetpasswordScreen';
+import RequestResetPassword from './screens/RequestResetScreen';
 
 import OrderListScreen from './screens/Admin/OrderListScreen';
 import ProductListScreen from './screens/Admin/ProductListScreen';
@@ -61,6 +63,9 @@ root.render(
           <Route path="/product/:id" element={<ProductScreen />} />
           <Route path="/cart" element={<CartScreen/>} />
           <Route path="/login" element={<LoginScreen/>} />
+          <Route path="/resetPassword/:resetToken" element={<ResetpasswordScreen/>} />
+          <Route path="/requestResetPassword" element={<RequestResetPassword/>} />
+
           <Route path="/register" element={<RegisterScreen/>} />
           <Route path='' element={<PrivateRoute/>}>
                <Route path="/shipping" element={<ShippingScreen/>} />

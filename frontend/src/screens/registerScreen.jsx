@@ -13,6 +13,7 @@ const RegisterScreen = () => {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('');
+    const [phoneNumber , setPhoneNumber] = useState('');
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -42,7 +43,7 @@ const RegisterScreen = () => {
         } else {
 
             try {
-                const res = await register({ name, email, password}).unwrap();
+                const res = await register({ name, email, password , phoneNumber}).unwrap();
                 dispath(setCredentials({ ...res}));
                 navigate(redirect);
             } catch (err){
@@ -66,6 +67,16 @@ const RegisterScreen = () => {
                         placeholder='Enter name'
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                    >
+                    </Form.Control>
+                </Form.Group>
+                <Form.Group controlId='phoneNumber' className='my-3'>
+                    <Form.Label>Phone Number</Form.Label>
+                    <Form.Control 
+                        type='number'
+                        placeholder='Enter phone no'
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
                     >
                     </Form.Control>
                 </Form.Group>

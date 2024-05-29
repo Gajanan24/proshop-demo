@@ -12,10 +12,24 @@ const userSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
+    phoneNumber: {
+      type: String,
+      required: true,
+      unique: true,
+      validate: {
+        validator: function(v) {
+          // Simple validation for phone number (this can be adjusted to your needs)
+          return /^\d{10}$/.test(v);
+        },
+        message: props => `${props.value} is not a valid phone number!`
+      },
+    },
     password: {
       type: String,
       required: true,
     },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
     isAdmin: {
       type: Boolean,
       required: true,

@@ -70,6 +70,11 @@ const LoginScreen = () => {
                 </Button>
 
             </Form>
+            <Row className='py-3'>
+                <Col>
+                     Forget password ? <Link to={ redirect ? `/requestResetPassword?redirect=${redirect}` : '/requestResetPassword'}>Forget password</Link>
+                </Col>
+            </Row>
 
             <Row className='py-3'>
                 <Col>
